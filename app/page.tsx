@@ -229,6 +229,7 @@ export default function Home() {
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <InnovationForm onEvaluationComplete={(result, idea) => {
+                  console.log('Page - Evaluation complete:', { result, idea });
                   setCurrentEvaluation(result);
                   setCurrentIdea(idea);
                 }} />
