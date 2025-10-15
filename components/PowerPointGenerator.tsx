@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, Download, Loader2, CheckCircle, Presentation, Sparkles } from 'lucide-react';
 import { InnovationIdea, EvaluationResult } from '@/types';
-import { powerpointGenerator } from '@/lib/powerpointGenerator';
+import { documentGenerator } from '@/lib/documentGenerator';
 import toast from 'react-hot-toast';
 
 interface PowerPointGeneratorProps {
@@ -30,13 +30,13 @@ export default function PowerPointGenerator({ idea, evaluation }: PowerPointGene
     setIsGenerating(true);
     
     try {
-      const presentation = await powerpointGenerator.generatePresentation(idea, evaluation);
+      const presentation = await documentGenerator.generateProfessionalDocument(idea, evaluation);
       
       // Create download link
       const url = URL.createObjectURL(presentation);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `Innovation_Assessment_${idea.title.replace(/[^a-zA-Z0-9]/g, '_')}.html`;
+      link.download = `Professional_Report_${idea.title.replace(/[^a-zA-Z0-9]/g, '_')}.html`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -75,10 +75,10 @@ export default function PowerPointGenerator({ idea, evaluation }: PowerPointGene
     >
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-darkGreen rounded-2xl flex items-center justify-center mx-auto mb-4">
-          <Presentation className="w-8 h-8 text-butterYellow" />
+          <FileText className="w-8 h-8 text-butterYellow" />
         </div>
-        <h3 className="text-3xl font-bold text-darkGreen mb-2 font-serif">Generate Professional Presentation</h3>
-        <p className="text-lg text-gray-600 font-serif">Transform your analysis into a compelling business presentation</p>
+        <h3 className="text-3xl font-bold text-darkGreen mb-2 font-serif">Generate Professional Report</h3>
+        <p className="text-lg text-gray-600 font-serif">Transform your analysis into a comprehensive business intelligence document</p>
       </div>
 
       <div className="space-y-6">
@@ -86,13 +86,13 @@ export default function PowerPointGenerator({ idea, evaluation }: PowerPointGene
         <div className="bg-white/60 backdrop-blur-sm border border-darkGreen/20 rounded-2xl p-6">
           <h4 className="font-bold text-darkGreen mb-4 text-xl font-serif flex items-center">
             <Sparkles className="w-5 h-5 mr-2" />
-            What's Included:
+            Document Contents:
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <ul className="text-gray-700 space-y-2 font-serif">
               <li className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
-                <span>Executive Summary with key metrics</span>
+                <span>Executive Summary with Innovation Score</span>
               </li>
               <li className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
@@ -100,21 +100,21 @@ export default function PowerPointGenerator({ idea, evaluation }: PowerPointGene
               </li>
               <li className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
-                <span>SWOT analysis with visual charts</span>
+                <span>SWOT Analysis with Strategic Insights</span>
               </li>
             </ul>
             <ul className="text-gray-700 space-y-2 font-serif">
               <li className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
-                <span>Market data and competitive analysis</span>
+                <span>Market Intelligence & Competitive Analysis</span>
               </li>
               <li className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
-                <span>Actionable recommendations</span>
+                <span>Strategic Recommendations & Next Steps</span>
               </li>
               <li className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
-                <span>Performance metrics and cost analysis</span>
+                <span>Technical Analysis & Implementation Metrics</span>
               </li>
             </ul>
           </div>
@@ -125,7 +125,7 @@ export default function PowerPointGenerator({ idea, evaluation }: PowerPointGene
           <div className="flex items-center space-x-4">
             <div className={`w-4 h-4 rounded-full ${canGenerate ? 'bg-green-500' : 'bg-gray-300'}`}></div>
             <span className="text-lg font-serif text-gray-700">
-              {canGenerate ? 'Ready to generate presentation' : 'Complete evaluation first'}
+              {canGenerate ? 'Ready to generate professional report' : 'Complete evaluation first'}
             </span>
           </div>
           <div className="text-sm text-gray-500 font-serif">
@@ -148,17 +148,17 @@ export default function PowerPointGenerator({ idea, evaluation }: PowerPointGene
           {isGenerating ? (
             <>
               <Loader2 className="w-6 h-6 animate-spin" />
-              <span>Generating Presentation...</span>
+              <span>Generating Professional Report...</span>
             </>
           ) : isGenerated ? (
             <>
               <CheckCircle className="w-6 h-6" />
-              <span>Presentation Generated!</span>
+              <span>Professional Report Generated!</span>
             </>
           ) : (
             <>
               <Download className="w-6 h-6" />
-              <span>Generate PowerPoint</span>
+              <span>Generate Professional Report</span>
             </>
           )}
         </motion.button>
