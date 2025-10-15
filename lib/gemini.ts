@@ -22,13 +22,12 @@ export class GeminiService {
   async evaluateInnovation(idea: InnovationIdea): Promise<EvaluationResult> {
     const startTime = Date.now();
     
-    // For demo purposes, always use fallback to ensure it works
-    console.log('Using fallback evaluation for demo purposes');
-    return this.generateFallbackEvaluation(idea);
-    
     try {
+      console.log('Starting real web search for:', idea.title);
+      
       // Get comprehensive product intelligence data
       const productIntelligence = await realWebSearchService.searchComprehensiveProductData(idea);
+      console.log('Web search completed, got product intelligence:', !!productIntelligence);
       
       const prompt = `You are a senior engineering director and product strategist with 15+ years of experience in tech companies like Google, Meta, and startups. Analyze this innovation idea with the depth and rigor expected in a board presentation.
 

@@ -122,7 +122,7 @@ export class RealWebSearchService {
       }
 
       const response = await fetch(
-        `https://www.googleapis.com/customsearch/v1?key=${this.GOOGLE_SEARCH_API_KEY}&cx=017576662512468239146:omuauf_lfve&q=${encodeURIComponent(query)}`
+        `https://www.googleapis.com/customsearch/v1?key=${this.GOOGLE_SEARCH_API_KEY}&cx=${process.env.GOOGLE_SEARCH_ENGINE_ID}&q=${encodeURIComponent(query)}&num=5`
       );
 
       if (!response.ok) {
@@ -130,6 +130,7 @@ export class RealWebSearchService {
       }
 
       const data = await response.json();
+      console.log(`Google Search for "${query}" returned ${data.items?.length || 0} results`);
       return this.parseGoogleSearchResults(data);
     } catch (error) {
       console.error('Google Search error:', error);
@@ -168,7 +169,7 @@ export class RealWebSearchService {
   private async searchArXiv(query: string): Promise<any> {
     try {
       const response = await fetch(
-        `http://export.arxiv.org/api/query?search_query=${encodeURIComponent(query)}&start=0&max_results=10&sortBy=relevance&sortOrder=descending`
+        `https://export.arxiv.org/api/query?search_query=${encodeURIComponent(query)}&start=0&max_results=10&sortBy=relevance&sortOrder=descending`
       );
 
       if (!response.ok) {
@@ -176,6 +177,7 @@ export class RealWebSearchService {
       }
 
       const data = await response.text();
+      console.log(`ArXiv search for "${query}" completed`);
       return this.parseArXivResults(data);
     } catch (error) {
       console.error('ArXiv Search error:', error);
@@ -325,25 +327,45 @@ export class RealWebSearchService {
     return 'Market size data not available';
   }
 
-  private extractCompetitors(results: any[]): string[] {
-    const competitors = new Set<string>();
+  private extractCompetitors(results: any[]): any[] {
+    const competitors = [];
     
     for (const result of results) {
       for (const item of result.items || []) {
         const text = `${item.title} ${item.snippet}`;
-        // Extract company names (simplified)
-        const companyMatches = text.match(/\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\b/g);
-        if (companyMatches) {
-          companyMatches.forEach(company => {
-            if (company.length > 3 && company.length < 50) {
-              competitors.add(company);
-            }
-          });
+        
+        // Look for specific competitor patterns
+        if (text.toLowerCase().includes('competitor') || 
+            text.toLowerCase().includes('alternative') ||
+            text.toLowerCase().includes('similar to') ||
+            text.toLowerCase().includes('like')) {
+          
+          // Extract company names and descriptions
+          const companyMatches = text.match(/\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\b/g);
+          if (companyMatches) {
+            companyMatches.forEach(company => {
+              if (company.length > 3 && company.length < 50 && 
+                  !company.toLowerCase().includes('the') &&
+                  !company.toLowerCase().includes('and') &&
+                  !company.toLowerCase().includes('for')) {
+                competitors.push({
+                  name: company,
+                  description: item.snippet?.substring(0, 150) + '...' || 'Competitor in the market',
+                  website: item.link || ''
+                });
+              }
+            });
+          }
         }
       }
     }
     
-    return Array.from(competitors).slice(0, 10);
+    // Remove duplicates and return top 5
+    const uniqueCompetitors = competitors.filter((comp, index, self) => 
+      index === self.findIndex(c => c.name === comp.name)
+    );
+    
+    return uniqueCompetitors.slice(0, 5);
   }
 
   private extractTrends(results: any[]): string[] {
