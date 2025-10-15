@@ -176,27 +176,27 @@ export default function InnovationForm({ onEvaluationComplete }: InnovationFormP
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-butterYellow/90 font-serif">
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
-              <span>Innovation Potential Assessment</span>
+              <span>Market Opportunity Analysis</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
-              <span>Technical Feasibility Analysis</span>
+              <span>Customer Demand Forecasting</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
-              <span>Market Readiness Evaluation</span>
+              <span>Competitive Landscape Intelligence</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
-              <span>Scalability & Growth Potential</span>
+              <span>Investment Risk Assessment</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
-              <span>Risk Assessment & Mitigation</span>
+              <span>Business Model Validation</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
-              <span>Competitive Intelligence</span>
+              <span>Strategic Decision Support</span>
             </div>
           </div>
         </div>

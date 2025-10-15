@@ -33,34 +33,34 @@ export default function Home() {
   const [currentEvaluation, setCurrentEvaluation] = useState<any>(null);
 
   const mlAlgorithms = [
-    "Neural Network Analysis",
-    "Natural Language Processing",
-    "Sentiment Analysis",
-    "Market Prediction Models",
-    "Patent Landscape Mapping",
-    "Competitive Intelligence AI"
+    "Market Opportunity Analysis",
+    "Customer Demand Forecasting",
+    "Competitive Landscape Intelligence",
+    "Investment Risk Assessment",
+    "Business Model Validation",
+    "Strategic Decision Support"
   ];
 
   const features = [
     {
       icon: <Brain className="w-8 h-8 text-butterYellow" />,
-      title: "Advanced AI Models",
-      description: "Sophisticated machine learning algorithms analyze innovation potential across multiple dimensions"
+      title: "Business Intelligence AI",
+      description: "Advanced algorithms analyze market potential, customer demand, and competitive positioning for strategic decision-making"
     },
     {
       icon: <Database className="w-8 h-8 text-butterYellow" />,
-      title: "Real-time Intelligence",
-      description: "Live market data, patent analysis, and competitive landscape insights"
+      title: "Market Intelligence",
+      description: "Real-time market data, industry trends, and competitive analysis to identify business opportunities"
     },
     {
       icon: <FileText className="w-8 h-8 text-butterYellow" />,
-      title: "Strategic Reports",
-      description: "Generate professional PowerPoint presentations with actionable insights"
+      title: "Executive Reports",
+      description: "Generate professional business presentations with market insights and strategic recommendations"
     },
     {
       icon: <Target className="w-8 h-8 text-butterYellow" />,
-      title: "Precision Scoring",
-      description: "Multi-criteria evaluation with detailed breakdowns and recommendations"
+      title: "Investment Analysis",
+      description: "Comprehensive evaluation of business viability, ROI potential, and risk assessment for stakeholders"
     }
   ];
 
@@ -132,8 +132,8 @@ export default function Home() {
                 Transform Ideas into Impact
               </h2>
               <p className="text-xl text-darkGreen/80 mb-12 font-serif leading-relaxed">
-                Our sophisticated AI algorithms analyze your innovation across multiple dimensions, 
-                providing deep insights into market potential, technical feasibility, and competitive landscape.
+                Our advanced business intelligence platform analyzes your innovation across market opportunity, 
+                customer demand, competitive positioning, and investment potential for strategic decision-making.
               </p>
               
               {/* Navigation */}
@@ -265,12 +265,12 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <h4 className="text-xl font-bold mb-6 font-serif">AI Capabilities</h4>
+              <h4 className="text-xl font-bold mb-6 font-serif">Business Intelligence</h4>
               <ul className="space-y-3 text-butterYellow/80 font-serif">
-                <li>Machine Learning Analysis</li>
-                <li>Natural Language Processing</li>
-                <li>Market Intelligence</li>
-                <li>Patent Landscape Mapping</li>
+                <li>Market Opportunity Analysis</li>
+                <li>Customer Demand Forecasting</li>
+                <li>Competitive Intelligence</li>
+                <li>Investment Risk Assessment</li>
               </ul>
             </div>
             <div>
