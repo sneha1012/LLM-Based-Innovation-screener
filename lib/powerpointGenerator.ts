@@ -20,7 +20,16 @@ export class PowerPointGenerator {
   }
 
   private createSlides(idea: InnovationIdea, evaluation: EvaluationResult): any[] {
-    return [
+    try {
+      console.log('Creating slides for:', idea.title);
+      console.log('Evaluation data structure:', {
+        hasGeneratedAt: !!evaluation.generatedAt,
+        generatedAtType: typeof evaluation.generatedAt,
+        hasPerformanceMetrics: !!evaluation.performanceMetrics,
+        performanceMetrics: evaluation.performanceMetrics
+      });
+      
+      return [
       {
         title: 'Innovation Assessment Report',
         subtitle: idea.title,
@@ -70,11 +79,15 @@ export class PowerPointGenerator {
         title: 'Performance Metrics',
         content: [
           { type: 'text', text: `Response Time: ${evaluation.performanceMetrics.responseTime}ms` },
-          { type: 'text', text: `Cost: $${evaluation.performanceMetrics.cost.toFixed(4)}` },
-          { type: 'text', text: `Tokens Used: ${evaluation.performanceMetrics.tokenUsage.toLocaleString()}` }
+          { type: 'text', text: `Cost: $${Number(evaluation.performanceMetrics.cost).toFixed(4)}` },
+          { type: 'text', text: `Tokens Used: ${Number(evaluation.performanceMetrics.tokenUsage).toLocaleString()}` }
         ]
       }
     ];
+    } catch (error) {
+      console.error('Error in createSlides:', error);
+      throw error;
+    }
   }
 
   private createEvaluationChart(criteria: any): any {
