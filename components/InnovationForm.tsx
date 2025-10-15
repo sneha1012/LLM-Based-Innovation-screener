@@ -8,7 +8,7 @@ import { generateId } from '@/lib/utils';
 import toast from 'react-hot-toast';
 
 interface InnovationFormProps {
-  onEvaluationComplete?: (result: any) => void;
+  onEvaluationComplete?: (result: any, idea: InnovationIdea) => void;
 }
 
 export default function InnovationForm({ onEvaluationComplete }: InnovationFormProps) {
@@ -69,7 +69,7 @@ export default function InnovationForm({ onEvaluationComplete }: InnovationFormP
       toast.success('Innovation idea evaluated successfully!');
       
       if (onEvaluationComplete) {
-        onEvaluationComplete(result);
+        onEvaluationComplete(result, idea);
       }
 
       // Reset form
