@@ -629,7 +629,7 @@ export class WrittenReportGenerator {
   }
 
   private getTechnicalInnovation(category: string): string {
-    const innovations = {
+    const innovations: { [key: string]: string } = {
       'Technology': 'the integration of cutting-edge AI algorithms with user-centric design principles',
       'Finance': 'the application of machine learning to personalize financial services and decision-making',
       'Healthcare': 'the combination of data analytics with patient-centered care delivery',
@@ -640,7 +640,7 @@ export class WrittenReportGenerator {
   }
 
   private getMarketGap(category: string): string {
-    const gaps = {
+    const gaps: { [key: string]: string } = {
       'Technology': 'providing seamless integration between complex systems and end-user experiences',
       'Finance': 'offering personalized financial guidance that adapts to individual user needs and goals',
       'Healthcare': 'delivering patient-centered care that leverages data insights for better outcomes',
@@ -651,7 +651,7 @@ export class WrittenReportGenerator {
   }
 
   private getCompetitiveAdvantage(category: string): string {
-    const advantages = {
+    const advantages: { [key: string]: string } = {
       'Technology': 'superior user experience combined with robust technical architecture',
       'Finance': 'personalized approach to financial services with advanced analytics',
       'Healthcare': 'patient-centered design with data-driven insights',
@@ -662,7 +662,7 @@ export class WrittenReportGenerator {
   }
 
   private getNoveltyAspect(category: string): string {
-    const novelties = {
+    const novelties: { [key: string]: string } = {
       'Technology': 'innovative approach to system integration and user interaction',
       'Finance': 'novel application of AI to personal financial management',
       'Healthcare': 'innovative patient engagement and care coordination methods',
@@ -673,7 +673,7 @@ export class WrittenReportGenerator {
   }
 
   private getExistingApproach(category: string): string {
-    const approaches = {
+    const approaches: { [key: string]: string } = {
       'Technology': 'traditional system-centric design and limited user customization',
       'Finance': 'one-size-fits-all financial products and services',
       'Healthcare': 'provider-centric care models with limited patient engagement',
@@ -684,7 +684,7 @@ export class WrittenReportGenerator {
   }
 
   private getInnovationApproach(category: string): string {
-    const innovations = {
+    const innovations: { [key: string]: string } = {
       'Technology': 'user-centric design with intelligent system adaptation',
       'Finance': 'personalized financial solutions that evolve with user needs',
       'Healthcare': 'patient-centered care with predictive health insights',

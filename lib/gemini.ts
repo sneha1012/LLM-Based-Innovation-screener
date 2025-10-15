@@ -236,7 +236,7 @@ Format your response as valid JSON matching this structure:
 
     return {
       id: `eval_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      idea: idea,
+      ideaId: idea.id,
       overallScore: 75,
       criteria: {
         innovationPotential: 80,

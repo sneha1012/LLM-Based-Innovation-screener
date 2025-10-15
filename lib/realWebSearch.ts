@@ -323,7 +323,7 @@ export class RealWebSearchService {
 
   private parseArXivResults(data: string): any {
     // Parse ArXiv XML response
-    const papers = [];
+    const papers: any[] = [];
     const entries = data.match(/<entry>[\s\S]*?<\/entry>/g) || [];
     
     entries.forEach(entry => {
@@ -441,7 +441,7 @@ export class RealWebSearchService {
   }
 
   private extractCompetitors(results: any[]): any[] {
-    const competitors = [];
+    const competitors: any[] = [];
     const knownCompanies = new Set();
     
     for (const result of results) {
@@ -606,7 +606,7 @@ export class RealWebSearchService {
     recommendations.push(...languages.slice(0, 3));
     recommendations.push(...frameworks.slice(0, 3));
     
-    return [...new Set(recommendations)].slice(0, 10);
+    return Array.from(new Set(recommendations)).slice(0, 10);
   }
 
   private findSimilarTechStacks(repositories: any[]): any[] {
@@ -638,7 +638,7 @@ export class RealWebSearchService {
     
     papers.forEach(paper => {
       const words = paper.title.toLowerCase().split(' ');
-      words.forEach(word => {
+      words.forEach((word: string) => {
         if (word.length > 4) {
           trends.set(word, (trends.get(word) || 0) + 1);
         }

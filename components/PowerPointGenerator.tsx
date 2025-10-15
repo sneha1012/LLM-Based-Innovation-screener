@@ -53,8 +53,8 @@ export default function PowerPointGenerator({ idea, evaluation }: PowerPointGene
     } catch (error) {
       console.error('PowerPoint Generator - Error generating presentation:', error);
       console.error('PowerPoint Generator - Error details:', {
-        message: error.message,
-        stack: error.stack,
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined,
         idea: idea,
         evaluation: evaluation
       });
