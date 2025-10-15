@@ -9,7 +9,7 @@ export class GeminiService {
 
   constructor() {
     this.model = genAI.getGenerativeModel({ 
-      model: "gemini-2.5-pro-preview-03-25",
+      model: "gemini-2.5-flash",
       generationConfig: {
         temperature: 0.7,
         topK: 40,
@@ -98,8 +98,20 @@ Format your response as valid JSON matching this structure:
       const response = await result.response;
       const text = response.text();
       
+      // Check if response is empty or invalid
+      if (!text || text.trim() === '') {
+        console.warn('Empty response from Gemini API, using fallback');
+        return this.generateFallbackEvaluation(idea);
+      }
+      
       // Parse the JSON response
-      const evaluationData = JSON.parse(text);
+      let evaluationData;
+      try {
+        evaluationData = JSON.parse(text);
+      } catch (parseError) {
+        console.warn('Failed to parse Gemini response as JSON, using fallback:', parseError);
+        return this.generateFallbackEvaluation(idea);
+      }
       
       const endTime = Date.now();
       const responseTime = endTime - startTime;
@@ -131,14 +143,70 @@ Format your response as valid JSON matching this structure:
   }
 
   private async generateFallbackEvaluation(idea: InnovationIdea): Promise<EvaluationResult> {
+    console.log('Generating fallback evaluation for:', idea.title);
+    
     // Get comprehensive product intelligence data even in fallback
-    const productIntelligence = await realWebSearchService.searchComprehensiveProductData(idea);
+    let productIntelligence;
+    try {
+      productIntelligence = await realWebSearchService.searchComprehensiveProductData(idea);
+    } catch (error) {
+      console.warn('Failed to get product intelligence, using minimal data:', error);
+      productIntelligence = {
+        marketData: {
+          marketSize: '$X.X Billion',
+          trends: ['Growing market demand', 'Technology advancement'],
+          opportunities: ['Market expansion', 'Partnership opportunities'],
+          risks: ['Competition', 'Market saturation'],
+          lastUpdated: new Date().toISOString(),
+          source: 'Fallback Data'
+        },
+        techStackData: {
+          recommendedTechStack: ['React', 'Node.js', 'Python', 'Cloud Platform'],
+          similarTechStacks: [],
+          openSourceProjects: [],
+          popularLanguages: ['JavaScript', 'Python', 'TypeScript'],
+          popularFrameworks: ['React', 'Next.js', 'Express'],
+          developmentTools: ['VS Code', 'Docker', 'Git'],
+          implementationComplexity: 'Medium',
+          developmentTimeline: '6-12 months',
+          requiredSkills: ['Full-stack Development', 'AI/ML', 'Cloud Architecture'],
+          source: 'Fallback Data'
+        },
+        researchPapers: {
+          researchPapers: [],
+          recentPapers: [],
+          researchTrends: ['AI Innovation', 'Market Analysis'],
+          keyResearchers: ['Industry Experts'],
+          source: 'Fallback Data'
+        },
+        competitiveData: {
+          directCompetitors: [],
+          indirectCompetitors: [],
+          startups: [],
+          marketLeaders: [],
+          fundingLandscape: [],
+          marketGaps: ['Untapped opportunities'],
+          source: 'Fallback Data'
+        },
+        patentData: {
+          relevantPatents: [],
+          patentLandscape: {
+            totalPatents: 1000,
+            riskLevel: 'Medium',
+            opportunities: 'High'
+          },
+          ipRisks: ['Patent conflicts'],
+          patentOpportunities: ['New patent filings'],
+          source: 'Fallback Data'
+        }
+      };
+    }
     
     const responseTime = 1500;
 
     return {
       id: `eval_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      ideaId: idea.id,
+      idea: idea,
       overallScore: 75,
       criteria: {
         innovationPotential: 80,
