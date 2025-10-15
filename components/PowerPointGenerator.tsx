@@ -17,11 +17,16 @@ export default function PowerPointGenerator({ idea, evaluation }: PowerPointGene
   const [isGenerated, setIsGenerated] = useState(false);
 
   const handleGeneratePresentation = async () => {
+    console.log('PowerPoint Generator - Idea:', idea);
+    console.log('PowerPoint Generator - Evaluation:', evaluation);
+    
     if (!idea || !evaluation) {
+      console.log('PowerPoint Generator - Missing data:', { idea: !!idea, evaluation: !!evaluation });
       toast.error('Please complete an evaluation first');
       return;
     }
 
+    console.log('PowerPoint Generator - Starting generation...');
     setIsGenerating(true);
     
     try {
@@ -46,7 +51,13 @@ export default function PowerPointGenerator({ idea, evaluation }: PowerPointGene
       }, 3000);
       
     } catch (error) {
-      console.error('Error generating presentation:', error);
+      console.error('PowerPoint Generator - Error generating presentation:', error);
+      console.error('PowerPoint Generator - Error details:', {
+        message: error.message,
+        stack: error.stack,
+        idea: idea,
+        evaluation: evaluation
+      });
       toast.error('Failed to generate presentation');
     } finally {
       setIsGenerating(false);
