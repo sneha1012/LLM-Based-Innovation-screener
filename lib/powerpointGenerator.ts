@@ -2,8 +2,21 @@ import { EvaluationResult, InnovationIdea } from '@/types';
 
 export class PowerPointGenerator {
   async generatePresentation(idea: InnovationIdea, evaluation: EvaluationResult): Promise<Blob> {
-    const slides = this.createSlides(idea, evaluation);
-    return this.generatePPTX(slides);
+    try {
+      console.log('Generating presentation for:', idea.title);
+      console.log('Evaluation data:', evaluation);
+      
+      const slides = this.createSlides(idea, evaluation);
+      console.log('Created slides:', slides.length);
+      
+      const blob = await this.generatePPTX(slides);
+      console.log('Generated blob:', blob);
+      
+      return blob;
+    } catch (error) {
+      console.error('Error in generatePresentation:', error);
+      throw error;
+    }
   }
 
   private createSlides(idea: InnovationIdea, evaluation: EvaluationResult): any[] {
@@ -97,13 +110,23 @@ export class PowerPointGenerator {
   }
 
   private async generatePPTX(slides: any[]): Promise<Blob> {
-    // For now, we'll create a simple HTML presentation that can be exported to PowerPoint
-    // In a production environment, you'd use a library like 'pptxgenjs'
-    
-    const htmlContent = this.generateHTMLPresentation(slides);
-    const blob = new Blob([htmlContent], { type: 'text/html' });
-    
-    return blob;
+    try {
+      console.log('Generating HTML presentation with', slides.length, 'slides');
+      
+      // For now, we'll create a simple HTML presentation that can be exported to PowerPoint
+      // In a production environment, you'd use a library like 'pptxgenjs'
+      
+      const htmlContent = this.generateHTMLPresentation(slides);
+      console.log('Generated HTML content length:', htmlContent.length);
+      
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      console.log('Created blob with size:', blob.size);
+      
+      return blob;
+    } catch (error) {
+      console.error('Error in generatePPTX:', error);
+      throw error;
+    }
   }
 
   private generateHTMLPresentation(slides: any[]): string {
