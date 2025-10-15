@@ -27,7 +27,7 @@ export class PowerPointGenerator {
         content: [
           { type: 'text', text: `Category: ${idea.category}` },
           { type: 'text', text: `Overall Score: ${evaluation.overallScore}/100` },
-          { type: 'text', text: `Generated: ${evaluation.generatedAt.toLocaleDateString()}` }
+          { type: 'text', text: `Generated: ${new Date(evaluation.generatedAt).toLocaleDateString()}` }
         ]
       },
       {
