@@ -7,13 +7,13 @@ import {
   TrendingUp, 
   Target, 
   Shield, 
-  Clock, 
-  DollarSign,
-  Download,
-  RefreshCw,
   CheckCircle,
   AlertTriangle,
-  XCircle
+  XCircle,
+  Star,
+  Award,
+  Brain,
+  Download
 } from 'lucide-react';
 import { EvaluationResult } from '@/types';
 import { formatDate, getScoreColor, getScoreLabel, downloadJSON } from '@/lib/utils';
@@ -34,14 +34,6 @@ export default function EvaluationResults({ result, onNewEvaluation }: Evaluatio
     }
   }, [result]);
 
-  const handleRefresh = async () => {
-    setIsLoading(true);
-    // Simulate refresh
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  };
-
   const handleDownloadResults = () => {
     if (evaluationHistory.length > 0) {
       downloadJSON(evaluationHistory, 'evaluation-results.json');
@@ -49,15 +41,15 @@ export default function EvaluationResults({ result, onNewEvaluation }: Evaluatio
   };
 
   const getScoreIcon = (score: number) => {
-    if (score >= 80) return <CheckCircle className="w-5 h-5 text-green-600" />;
-    if (score >= 60) return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
-    return <XCircle className="w-5 h-5 text-red-600" />;
+    if (score >= 80) return <Award className="w-6 h-6 text-butterYellow" />;
+    if (score >= 60) return <Star className="w-6 h-6 text-butterYellow" />;
+    return <AlertTriangle className="w-6 h-6 text-butterYellow" />;
   };
 
-  const getScoreBgColor = (score: number) => {
-    if (score >= 80) return 'bg-green-50 border-green-200';
-    if (score >= 60) return 'bg-yellow-50 border-yellow-200';
-    return 'bg-red-50 border-red-200';
+  const getScoreGradient = (score: number) => {
+    if (score >= 80) return 'from-green-400 to-green-600';
+    if (score >= 60) return 'from-yellow-400 to-orange-500';
+    return 'from-red-400 to-red-600';
   };
 
   if (evaluationHistory.length === 0) {
@@ -66,23 +58,35 @@ export default function EvaluationResults({ result, onNewEvaluation }: Evaluatio
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-white rounded-xl shadow-lg p-8"
+        className="bg-gradient-to-br from-butterYellow/10 to-darkGreen/5 rounded-2xl shadow-xl p-12 border border-butterYellow/20"
       >
         <div className="text-center">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <BarChart3 className="w-8 h-8 text-gray-400" />
+          <div className="w-20 h-20 bg-darkGreen rounded-full flex items-center justify-center mx-auto mb-6">
+            <BarChart3 className="w-10 h-10 text-butterYellow" />
           </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">No Evaluations Yet</h3>
-          <p className="text-gray-600 mb-6">
-            Submit an innovation idea to see detailed evaluation results and analysis.
+          <h3 className="text-3xl font-bold text-darkGreen mb-4 font-serif">Ready for Analysis</h3>
+          <p className="text-lg text-gray-600 mb-8 font-serif leading-relaxed">
+            Submit your innovation idea to receive comprehensive AI-powered evaluation and strategic insights.
           </p>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left">
-            <h4 className="text-sm font-medium text-blue-900 mb-2">What You'll Get:</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
-              <li>• Comprehensive scoring across 5 key criteria</li>
-              <li>• Detailed SWOT analysis</li>
-              <li>• Actionable recommendations</li>
-              <li>• Performance metrics and cost analysis</li>
+          <div className="bg-white/60 backdrop-blur-sm border border-darkGreen/20 rounded-2xl p-6 text-left max-w-md mx-auto">
+            <h4 className="text-lg font-bold text-darkGreen mb-4 font-serif">What You'll Discover:</h4>
+            <ul className="text-gray-700 space-y-2 font-serif">
+              <li className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
+                <span>Innovation potential & market viability</span>
+              </li>
+              <li className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
+                <span>Technical feasibility analysis</span>
+              </li>
+              <li className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
+                <span>Competitive landscape insights</span>
+              </li>
+              <li className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
+                <span>Strategic recommendations</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -97,33 +101,24 @@ export default function EvaluationResults({ result, onNewEvaluation }: Evaluatio
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6 }}
-      className="bg-white rounded-xl shadow-lg p-8"
+      className="bg-gradient-to-br from-butterYellow/10 to-darkGreen/5 rounded-2xl shadow-xl p-8 border border-butterYellow/20"
     >
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
-            <BarChart3 className="w-6 h-6 text-primary-600" />
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center space-x-4">
+          <div className="w-12 h-12 bg-darkGreen rounded-2xl flex items-center justify-center">
+            <BarChart3 className="w-7 h-7 text-butterYellow" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Evaluation Results</h2>
-            <p className="text-gray-600">AI-powered analysis and scoring</p>
+            <h2 className="text-3xl font-bold text-darkGreen font-serif">AI Analysis Results</h2>
+            <p className="text-gray-600 font-serif">Comprehensive innovation assessment</p>
           </div>
         </div>
-        <div className="flex items-center space-x-2">
-          <button
-            onClick={handleRefresh}
-            disabled={isLoading}
-            className="p-2 text-gray-500 hover:text-gray-700 transition-colors disabled:opacity-50"
-          >
-            <RefreshCw className={`w-5 h-5 ${isLoading ? 'animate-spin' : ''}`} />
-          </button>
-          <button
-            onClick={handleDownloadResults}
-            className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
-          >
-            <Download className="w-5 h-5" />
-          </button>
-        </div>
+        <button
+          onClick={handleDownloadResults}
+          className="p-3 bg-darkGreen text-butterYellow rounded-xl hover:bg-darkGreen/90 transition-colors"
+        >
+          <Download className="w-5 h-5" />
+        </button>
       </div>
 
       <AnimatePresence mode="wait">
@@ -134,174 +129,136 @@ export default function EvaluationResults({ result, onNewEvaluation }: Evaluatio
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
         >
-          {/* Overall Score */}
-          <div className={`rounded-xl p-6 mb-6 border-2 ${getScoreBgColor(latestResult.overallScore)}`}>
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center space-x-3">
+          {/* Overall Score - Beautiful Design */}
+          <div className="bg-gradient-to-r from-darkGreen to-darkGreen/80 rounded-2xl p-8 mb-8 text-center relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-butterYellow/10 to-transparent"></div>
+            <div className="relative z-10">
+              <div className="flex items-center justify-center space-x-4 mb-4">
                 {getScoreIcon(latestResult.overallScore)}
-                <h3 className="text-xl font-semibold text-gray-900">Overall Score</h3>
+                <h3 className="text-2xl font-bold text-butterYellow font-serif">Overall Innovation Score</h3>
               </div>
-              <div className="text-right">
-                <div className={`text-3xl font-bold ${getScoreColor(latestResult.overallScore)}`}>
-                  {latestResult.overallScore}/100
-                </div>
-                <div className="text-sm text-gray-600">{getScoreLabel(latestResult.overallScore)}</div>
+              <div className="text-6xl font-bold text-butterYellow mb-2 font-serif">
+                {latestResult.overallScore}
               </div>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
-              <div
-                className={`h-3 rounded-full transition-all duration-1000 ${
-                  latestResult.overallScore >= 80 ? 'bg-green-500' :
-                  latestResult.overallScore >= 60 ? 'bg-yellow-500' : 'bg-red-500'
-                }`}
-                style={{ width: `${latestResult.overallScore}%` }}
-              />
+              <div className="text-xl text-butterYellow/90 font-serif mb-6">
+                {getScoreLabel(latestResult.overallScore)}
+              </div>
+              <div className="w-full bg-butterYellow/20 rounded-full h-4 max-w-md mx-auto">
+                <div
+                  className={`h-4 rounded-full bg-gradient-to-r ${getScoreGradient(latestResult.overallScore)} transition-all duration-1000`}
+                  style={{ width: `${latestResult.overallScore}%` }}
+                />
+              </div>
             </div>
           </div>
 
-          {/* Detailed Criteria */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-gray-900 mb-4">Evaluation Criteria</h4>
-              
-              {Object.entries(latestResult.criteria).map(([key, value]) => (
-                <div key={key} className="bg-gray-50 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700 capitalize">
-                      {key.replace(/([A-Z])/g, ' $1').trim()}
-                    </span>
-                    <span className={`text-sm font-semibold ${getScoreColor(value)}`}>
-                      {value}/100
-                    </span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className={`h-2 rounded-full ${
-                        value >= 80 ? 'bg-green-500' :
-                        value >= 60 ? 'bg-yellow-500' : 'bg-red-500'
-                      }`}
-                      style={{ width: `${value}%` }}
-                    />
+          {/* Criteria Scores - Elegant Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {Object.entries(latestResult.criteria).map(([key, value]) => (
+              <motion.div
+                key={key}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-butterYellow/20 hover:shadow-lg transition-all duration-300"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-lg font-bold text-darkGreen font-serif capitalize">
+                    {key.replace(/([A-Z])/g, ' $1').trim()}
+                  </h4>
+                  <div className="text-2xl font-bold text-darkGreen">
+                    {value}
                   </div>
                 </div>
-              ))}
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-gray-900 mb-4">Performance Metrics</h4>
-              
-              <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-2">
-                    <Clock className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-700">Response Time</span>
-                  </div>
-                  <span className="text-sm font-semibold text-gray-900">
-                    {latestResult.performanceMetrics.responseTime}ms
-                  </span>
+                <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div
+                    className={`h-3 rounded-full bg-gradient-to-r ${getScoreGradient(value)} transition-all duration-1000`}
+                    style={{ width: `${value}%` }}
+                  />
                 </div>
-                
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-2">
-                    <DollarSign className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-700">Cost</span>
-                  </div>
-                  <span className="text-sm font-semibold text-gray-900">
-                    ${latestResult.performanceMetrics.cost.toFixed(4)}
-                  </span>
+                <div className="mt-2 text-sm text-gray-600 font-serif">
+                  {value >= 80 ? 'Excellent' : value >= 60 ? 'Good' : 'Needs Improvement'}
                 </div>
-                
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-2">
-                    <Target className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-700">Tokens Used</span>
-                  </div>
-                  <span className="text-sm font-semibold text-gray-900">
-                    {latestResult.performanceMetrics.tokenUsage.toLocaleString()}
-                  </span>
-                </div>
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </div>
 
           {/* Product Intelligence */}
           <ProductIntelligence evaluation={latestResult} />
 
-          {/* Detailed Analysis */}
-          <div className="space-y-6">
-            <h4 className="text-lg font-semibold text-gray-900">Detailed Analysis</h4>
+          {/* Strategic Analysis */}
+          <div className="space-y-8">
+            <h4 className="text-2xl font-bold text-darkGreen font-serif text-center">Strategic Analysis</h4>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                  <h5 className="font-medium text-green-900 mb-2 flex items-center">
-                    <CheckCircle className="w-4 h-4 mr-2" />
-                    Strengths
-                  </h5>
-                  <ul className="text-sm text-green-800 space-y-1">
-                    {latestResult.detailedAnalysis.strengths.map((strength, index) => (
-                      <li key={index}>• {strength}</li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h5 className="font-medium text-blue-900 mb-2 flex items-center">
-                    <TrendingUp className="w-4 h-4 mr-2" />
-                    Opportunities
-                  </h5>
-                  <ul className="text-sm text-blue-800 space-y-1">
-                    {latestResult.detailedAnalysis.opportunities.map((opportunity, index) => (
-                      <li key={index}>• {opportunity}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-2xl p-6"
+              >
+                <h5 className="font-bold text-green-900 mb-4 flex items-center text-lg font-serif">
+                  <CheckCircle className="w-5 h-5 mr-3" />
+                  Key Strengths
+                </h5>
+                <ul className="text-green-800 space-y-2 font-serif">
+                  {latestResult.detailedAnalysis.strengths.map((strength, index) => (
+                    <li key={index} className="flex items-start space-x-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <span>{strength}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
               
-              <div className="space-y-4">
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                  <h5 className="font-medium text-red-900 mb-2 flex items-center">
-                    <XCircle className="w-4 h-4 mr-2" />
-                    Weaknesses
-                  </h5>
-                  <ul className="text-sm text-red-800 space-y-1">
-                    {latestResult.detailedAnalysis.weaknesses.map((weakness, index) => (
-                      <li key={index}>• {weakness}</li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-                  <h5 className="font-medium text-orange-900 mb-2 flex items-center">
-                    <Shield className="w-4 h-4 mr-2" />
-                    Threats
-                  </h5>
-                  <ul className="text-sm text-orange-800 space-y-1">
-                    {latestResult.detailedAnalysis.threats.map((threat, index) => (
-                      <li key={index}>• {threat}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-2xl p-6"
+              >
+                <h5 className="font-bold text-blue-900 mb-4 flex items-center text-lg font-serif">
+                  <TrendingUp className="w-5 h-5 mr-3" />
+                  Growth Opportunities
+                </h5>
+                <ul className="text-blue-800 space-y-2 font-serif">
+                  {latestResult.detailedAnalysis.opportunities.map((opportunity, index) => (
+                    <li key={index} className="flex items-start space-x-2">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <span>{opportunity}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             </div>
-            
-            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-              <h5 className="font-medium text-purple-900 mb-2 flex items-center">
-                <Target className="w-4 h-4 mr-2" />
-                Recommendations
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-gradient-to-r from-darkGreen to-darkGreen/80 rounded-2xl p-8 text-center"
+            >
+              <h5 className="font-bold text-butterYellow mb-6 flex items-center justify-center text-xl font-serif">
+                <Brain className="w-6 h-6 mr-3" />
+                AI-Powered Recommendations
               </h5>
-              <ul className="text-sm text-purple-800 space-y-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
                 {latestResult.detailedAnalysis.recommendations.map((recommendation, index) => (
-                  <li key={index}>• {recommendation}</li>
+                  <div key={index} className="flex items-start space-x-3 p-4 bg-butterYellow/10 rounded-xl">
+                    <div className="w-6 h-6 bg-butterYellow text-darkGreen rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">
+                      {index + 1}
+                    </div>
+                    <span className="text-butterYellow font-serif">{recommendation}</span>
+                  </div>
                 ))}
-              </ul>
-            </div>
+              </div>
+            </motion.div>
           </div>
 
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <div className="flex items-center justify-between text-sm text-gray-500">
+          <div className="mt-8 pt-6 border-t border-butterYellow/20">
+            <div className="flex items-center justify-between text-sm text-gray-500 font-serif">
               <span>Generated on {formatDate(latestResult.generatedAt)}</span>
-              <span>Evaluation ID: {latestResult.id}</span>
+              <span>Analysis ID: {latestResult.id}</span>
             </div>
           </div>
         </motion.div>

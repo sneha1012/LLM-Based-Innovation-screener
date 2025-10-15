@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
   * {
@@ -10,37 +10,57 @@
   }
   
   body {
-    @apply bg-white text-gray-900 font-sans;
+    @apply bg-white text-gray-900 font-serif;
   }
   
   html {
     scroll-behavior: smooth;
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
 }
 
 @layer components {
   .gradient-bg {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #003631 0%, #FFEDA8 100%);
   }
   
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-2;
   }
   
   .btn-primary {
-    @apply bg-darkGreen hover:bg-darkGreen/90 text-butterYellow font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-darkGreen focus:ring-offset-2 font-serif;
+    @apply bg-darkGreen hover:bg-darkGreen/90 text-butterYellow font-bold py-4 px-8 rounded-2xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-darkGreen/20 focus:ring-offset-2 font-serif text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1;
   }
   
   .btn-secondary {
-    @apply bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+    @apply bg-butterYellow/20 hover:bg-butterYellow/30 text-darkGreen font-bold py-4 px-8 rounded-2xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-butterYellow/20 focus:ring-offset-2 font-serif text-lg shadow-lg hover:shadow-xl;
   }
   
   .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darkGreen focus:border-transparent transition-colors duration-200;
+    @apply w-full px-6 py-4 border-2 border-butterYellow/30 rounded-xl shadow-sm focus:outline-none focus:ring-4 focus:ring-darkGreen/20 focus:border-darkGreen transition-all duration-300 font-serif text-lg bg-white/60 backdrop-blur-sm;
   }
   
   .textarea-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darkGreen focus:border-transparent transition-colors duration-200 resize-y min-h-[100px];
+    @apply w-full px-6 py-4 border-2 border-butterYellow/30 rounded-xl shadow-sm focus:outline-none focus:ring-4 focus:ring-darkGreen/20 focus:border-darkGreen transition-all duration-300 font-serif text-lg bg-white/60 backdrop-blur-sm resize-none min-h-[120px];
+  }
+  
+  .card-elegant {
+    @apply bg-gradient-to-br from-butterYellow/10 to-darkGreen/5 rounded-2xl shadow-2xl border border-butterYellow/20 backdrop-blur-sm;
+  }
+  
+  .text-elegant {
+    @apply font-serif text-darkGreen;
+  }
+  
+  .half-half-left {
+    @apply bg-darkGreen text-butterYellow;
+  }
+  
+  .half-half-right {
+    @apply bg-butterYellow text-darkGreen;
   }
 }
 
@@ -49,11 +69,32 @@
     @apply bg-gradient-to-r from-darkGreen to-espresso bg-clip-text text-transparent;
   }
   
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-butterYellow to-yellow-300 bg-clip-text text-transparent;
+  }
+  
   .shadow-glow {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 30px rgba(0, 54, 49, 0.3);
+  }
+  
+  .shadow-glow-gold {
+    box-shadow: 0 0 30px rgba(255, 237, 168, 0.4);
   }
   
   .animate-pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }

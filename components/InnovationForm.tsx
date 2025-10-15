@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Lightbulb, Send, Loader2 } from 'lucide-react';
+import { Lightbulb, Send, Loader2, Brain, Sparkles } from 'lucide-react';
 import { InnovationIdea } from '@/types';
 import { generateId } from '@/lib/utils';
 import toast from 'react-hot-toast';
@@ -99,21 +99,19 @@ export default function InnovationForm({ onEvaluationComplete }: InnovationFormP
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6 }}
-      className="bg-white rounded-xl shadow-lg p-8"
+      className="bg-gradient-to-br from-butterYellow/10 to-darkGreen/5 rounded-2xl shadow-2xl p-8 border border-butterYellow/20"
     >
-      <div className="flex items-center space-x-3 mb-6">
-        <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
-          <Lightbulb className="w-6 h-6 text-primary-600" />
+      <div className="text-center mb-8">
+        <div className="w-16 h-16 bg-darkGreen rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <Lightbulb className="w-8 h-8 text-butterYellow" />
         </div>
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900">Submit Innovation Idea</h2>
-          <p className="text-gray-600">Describe your innovative idea for AI-powered evaluation</p>
-        </div>
+        <h2 className="text-3xl font-bold text-darkGreen mb-2 font-serif">Submit Your Innovation</h2>
+        <p className="text-lg text-gray-600 font-serif">Describe your idea for comprehensive AI analysis</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-8">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="title" className="block text-lg font-bold text-darkGreen mb-3 font-serif">
             Innovation Title *
           </label>
           <input
@@ -122,24 +120,24 @@ export default function InnovationForm({ onEvaluationComplete }: InnovationFormP
             value={formData.title}
             onChange={(e) => handleInputChange('title', e.target.value)}
             placeholder="Enter a compelling title for your innovation"
-            className="input-field"
+            className="w-full px-6 py-4 rounded-xl border-2 border-butterYellow/30 focus:border-darkGreen focus:ring-2 focus:ring-darkGreen/20 transition-all duration-300 font-serif text-lg bg-white/60 backdrop-blur-sm"
             disabled={isSubmitting}
             maxLength={100}
           />
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-sm text-gray-500 mt-2 font-serif">
             {formData.title.length}/100 characters
           </p>
         </div>
 
         <div>
-          <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
-            Category
+          <label htmlFor="category" className="block text-lg font-bold text-darkGreen mb-3 font-serif">
+            Industry Category
           </label>
           <select
             id="category"
             value={formData.category}
             onChange={(e) => handleInputChange('category', e.target.value)}
-            className="input-field"
+            className="w-full px-6 py-4 rounded-xl border-2 border-butterYellow/30 focus:border-darkGreen focus:ring-2 focus:ring-darkGreen/20 transition-all duration-300 font-serif text-lg bg-white/60 backdrop-blur-sm"
             disabled={isSubmitting}
           >
             {categories.map((category) => (
@@ -151,7 +149,7 @@ export default function InnovationForm({ onEvaluationComplete }: InnovationFormP
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="description" className="block text-lg font-bold text-darkGreen mb-3 font-serif">
             Detailed Description *
           </label>
           <textarea
@@ -159,49 +157,78 @@ export default function InnovationForm({ onEvaluationComplete }: InnovationFormP
             value={formData.description}
             onChange={(e) => handleInputChange('description', e.target.value)}
             placeholder="Provide a detailed description of your innovation idea. Include the problem it solves, how it works, target market, and potential impact..."
-            className="textarea-field"
+            className="w-full px-6 py-4 rounded-xl border-2 border-butterYellow/30 focus:border-darkGreen focus:ring-2 focus:ring-darkGreen/20 transition-all duration-300 font-serif text-lg bg-white/60 backdrop-blur-sm resize-none"
             rows={6}
             disabled={isSubmitting}
             maxLength={2000}
           />
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-sm text-gray-500 mt-2 font-serif">
             {formData.description.length}/2000 characters
           </p>
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h4 className="text-sm font-medium text-blue-900 mb-2">Evaluation Criteria</h4>
-          <ul className="text-sm text-blue-800 space-y-1">
-            <li>• <strong>Innovation Potential:</strong> Novelty and groundbreaking nature</li>
-            <li>• <strong>Feasibility:</strong> Technical and practical achievability</li>
-            <li>• <strong>Market Readiness:</strong> Market timing and demand</li>
-            <li>• <strong>Scalability:</strong> Growth and expansion potential</li>
-            <li>• <strong>Risk Assessment:</strong> Potential challenges and mitigation</li>
-          </ul>
+        {/* AI Analysis Preview */}
+        <div className="bg-gradient-to-r from-darkGreen to-darkGreen/80 rounded-2xl p-6 text-center">
+          <h4 className="text-xl font-bold text-butterYellow mb-4 font-serif flex items-center justify-center">
+            <Brain className="w-6 h-6 mr-2" />
+            AI Analysis Preview
+          </h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-butterYellow/90 font-serif">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
+              <span>Innovation Potential Assessment</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
+              <span>Technical Feasibility Analysis</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
+              <span>Market Readiness Evaluation</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
+              <span>Scalability & Growth Potential</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
+              <span>Risk Assessment & Mitigation</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-butterYellow rounded-full"></div>
+              <span>Competitive Intelligence</span>
+            </div>
+          </div>
         </div>
 
-        <button
+        <motion.button
           type="submit"
           disabled={isSubmitting || !formData.title.trim() || !formData.description.trim()}
-          className="w-full btn-primary flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          whileHover={!isSubmitting && formData.title.trim() && formData.description.trim() ? { scale: 1.02 } : {}}
+          whileTap={!isSubmitting && formData.title.trim() && formData.description.trim() ? { scale: 0.98 } : {}}
+          className={`w-full flex items-center justify-center space-x-3 py-6 px-8 rounded-2xl font-bold text-xl transition-all duration-300 font-serif ${
+            !isSubmitting && formData.title.trim() && formData.description.trim()
+              ? 'bg-gradient-to-r from-darkGreen to-darkGreen/80 hover:from-darkGreen/90 hover:to-darkGreen/70 text-butterYellow shadow-2xl hover:shadow-3xl transform hover:-translate-y-1'
+              : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+          }`}
         >
           {isSubmitting ? (
             <>
-              <Loader2 className="w-5 h-5 animate-spin" />
-              <span>Analyzing Innovation...</span>
+              <Loader2 className="w-6 h-6 animate-spin" />
+              <span>AI Analyzing Innovation...</span>
             </>
           ) : (
             <>
-              <Send className="w-5 h-5" />
+              <Sparkles className="w-6 h-6" />
               <span>Evaluate Innovation</span>
             </>
           )}
-        </button>
+        </motion.button>
       </form>
 
-      <div className="mt-6 text-center">
-        <p className="text-sm text-gray-500">
-          Your idea will be analyzed using advanced AI models and comprehensive evaluation metrics
+      <div className="mt-8 text-center">
+        <p className="text-gray-600 font-serif text-lg">
+          Your idea will be analyzed using advanced machine learning models and comprehensive evaluation metrics
         </p>
       </div>
     </motion.div>

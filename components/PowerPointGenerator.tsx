@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Download, Loader2, CheckCircle } from 'lucide-react';
+import { FileText, Download, Loader2, CheckCircle, Presentation, Sparkles } from 'lucide-react';
 import { InnovationIdea, EvaluationResult } from '@/types';
 import { powerpointGenerator } from '@/lib/powerpointGenerator';
 import toast from 'react-hot-toast';
@@ -60,72 +60,101 @@ export default function PowerPointGenerator({ idea, evaluation }: PowerPointGene
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="bg-white rounded-xl shadow-lg p-6 border border-gray-200"
+      className="bg-gradient-to-br from-butterYellow/20 to-darkGreen/10 rounded-2xl shadow-2xl p-8 border border-butterYellow/30"
     >
-      <div className="flex items-center space-x-3 mb-4">
-        <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-accent-500 rounded-lg flex items-center justify-center">
-          <FileText className="w-6 h-6 text-white" />
+      <div className="text-center mb-8">
+        <div className="w-16 h-16 bg-darkGreen rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <Presentation className="w-8 h-8 text-butterYellow" />
         </div>
-        <div>
-          <h3 className="text-lg font-semibold text-gray-900">Generate Presentation</h3>
-          <p className="text-sm text-gray-600">Create professional PowerPoint slides</p>
-        </div>
+        <h3 className="text-3xl font-bold text-darkGreen mb-2 font-serif">Generate Professional Presentation</h3>
+        <p className="text-lg text-gray-600 font-serif">Transform your analysis into a compelling business presentation</p>
       </div>
 
-      <div className="space-y-4">
-        <div className="bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-200 rounded-lg p-4">
-          <h4 className="font-medium text-primary-900 mb-2">What's Included:</h4>
-          <ul className="text-sm text-primary-800 space-y-1">
-            <li>• Executive Summary with key metrics</li>
-            <li>• Detailed evaluation across 5 criteria</li>
-            <li>• SWOT analysis with visual charts</li>
-            <li>• Market data and competitive analysis</li>
-            <li>• Actionable recommendations</li>
-            <li>• Performance metrics and cost analysis</li>
-          </ul>
+      <div className="space-y-6">
+        {/* What's Included */}
+        <div className="bg-white/60 backdrop-blur-sm border border-darkGreen/20 rounded-2xl p-6">
+          <h4 className="font-bold text-darkGreen mb-4 text-xl font-serif flex items-center">
+            <Sparkles className="w-5 h-5 mr-2" />
+            What's Included:
+          </h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <ul className="text-gray-700 space-y-2 font-serif">
+              <li className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
+                <span>Executive Summary with key metrics</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
+                <span>Detailed evaluation across 5 criteria</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
+                <span>SWOT analysis with visual charts</span>
+              </li>
+            </ul>
+            <ul className="text-gray-700 space-y-2 font-serif">
+              <li className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
+                <span>Market data and competitive analysis</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
+                <span>Actionable recommendations</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-darkGreen rounded-full"></div>
+                <span>Performance metrics and cost analysis</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-          <div className="flex items-center space-x-3">
-            <div className={`w-3 h-3 rounded-full ${canGenerate ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-            <span className="text-sm text-gray-700">
-              {canGenerate ? 'Ready to generate' : 'Complete evaluation first'}
+        {/* Status */}
+        <div className="flex items-center justify-between p-6 bg-white/40 backdrop-blur-sm rounded-2xl border border-butterYellow/20">
+          <div className="flex items-center space-x-4">
+            <div className={`w-4 h-4 rounded-full ${canGenerate ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+            <span className="text-lg font-serif text-gray-700">
+              {canGenerate ? 'Ready to generate presentation' : 'Complete evaluation first'}
             </span>
           </div>
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-gray-500 font-serif">
             {idea && evaluation ? 'All data available' : 'Missing evaluation data'}
           </div>
         </div>
 
-        <button
+        {/* Generate Button */}
+        <motion.button
           onClick={handleGeneratePresentation}
           disabled={!canGenerate}
-          className={`w-full flex items-center justify-center space-x-2 py-3 px-4 rounded-lg font-medium transition-all duration-200 ${
+          whileHover={canGenerate ? { scale: 1.02 } : {}}
+          whileTap={canGenerate ? { scale: 0.98 } : {}}
+          className={`w-full flex items-center justify-center space-x-3 py-6 px-8 rounded-2xl font-bold text-xl transition-all duration-300 font-serif ${
             canGenerate
-              ? 'bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
+              ? 'bg-gradient-to-r from-darkGreen to-darkGreen/80 hover:from-darkGreen/90 hover:to-darkGreen/70 text-butterYellow shadow-2xl hover:shadow-3xl transform hover:-translate-y-1'
               : 'bg-gray-200 text-gray-500 cursor-not-allowed'
           }`}
         >
           {isGenerating ? (
             <>
-              <Loader2 className="w-5 h-5 animate-spin" />
+              <Loader2 className="w-6 h-6 animate-spin" />
               <span>Generating Presentation...</span>
             </>
           ) : isGenerated ? (
             <>
-              <CheckCircle className="w-5 h-5" />
+              <CheckCircle className="w-6 h-6" />
               <span>Presentation Generated!</span>
             </>
           ) : (
             <>
-              <Download className="w-5 h-5" />
+              <Download className="w-6 h-6" />
               <span>Generate PowerPoint</span>
             </>
           )}
-        </button>
+        </motion.button>
 
-        <div className="text-xs text-gray-500 text-center">
-          Presentation will be downloaded as an HTML file that can be opened in PowerPoint
+        <div className="text-center text-gray-500 font-serif">
+          <p className="text-sm">Presentation will be downloaded as an HTML file that can be opened in PowerPoint</p>
+          <p className="text-xs mt-1">Perfect for business presentations and investor meetings</p>
         </div>
       </div>
     </motion.div>
