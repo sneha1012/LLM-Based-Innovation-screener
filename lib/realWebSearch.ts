@@ -37,19 +37,58 @@ export class RealWebSearchService {
   }
 
   private async searchMarketData(idea: InnovationIdea): Promise<any> {
-    // Use Google Custom Search API for real market data
-    const searchQueries = [
-      `${idea.title} market size 2024`,
-      `${idea.category} industry trends`,
-      `${idea.title} market analysis`,
-      `${idea.title} industry report`
-    ];
-
+    // Create more specific and targeted search queries based on the innovation
+    const specificQueries = this.generateSpecificMarketQueries(idea);
+    
     const results = await Promise.all(
-      searchQueries.map(query => this.performGoogleSearch(query))
+      specificQueries.map(query => this.performGoogleSearch(query))
     );
 
     return this.aggregateMarketData(results, idea);
+  }
+
+  private generateSpecificMarketQueries(idea: InnovationIdea): string[] {
+    const title = idea.title.toLowerCase();
+    const category = idea.category.toLowerCase();
+    
+    // Generate specific queries based on the innovation type
+    if (title.includes('ai') || title.includes('artificial intelligence')) {
+      return [
+        `AI ${category} market size 2024`,
+        `artificial intelligence ${category} industry trends`,
+        `AI-powered ${category} solutions market analysis`,
+        `${category} AI startups funding 2024`
+      ];
+    } else if (title.includes('smart home') || title.includes('energy')) {
+      return [
+        `smart home energy optimization market 2024`,
+        `home energy management systems market size`,
+        `Gen Z energy consumption trends`,
+        `smart home AI market analysis 2024`
+      ];
+    } else if (title.includes('finance') || title.includes('fintech')) {
+      return [
+        `fintech market size 2024`,
+        `Gen Z financial services market`,
+        `AI finance apps market analysis`,
+        `personal finance technology trends 2024`
+      ];
+    } else if (title.includes('health') || title.includes('medical')) {
+      return [
+        `healthtech market size 2024`,
+        `AI healthcare solutions market`,
+        `digital health trends 2024`,
+        `healthcare technology market analysis`
+      ];
+    } else {
+      // Generic but more specific queries
+      return [
+        `${idea.title} market opportunity 2024`,
+        `${category} innovation trends`,
+        `${idea.title} business model analysis`,
+        `${category} technology market size`
+      ];
+    }
   }
 
   private async searchTechStackData(idea: InnovationIdea): Promise<any> {
@@ -69,13 +108,8 @@ export class RealWebSearchService {
   }
 
   private async searchResearchPapers(idea: InnovationIdea): Promise<any> {
-    // Search ArXiv for relevant research papers
-    const researchQueries = [
-      `${idea.title}`,
-      `${idea.category} AI`,
-      `${idea.category} machine learning`,
-      `${idea.category} technology`
-    ];
+    // Generate specific research queries based on the innovation
+    const researchQueries = this.generateSpecificResearchQueries(idea);
 
     const results = await Promise.all(
       researchQueries.map(query => this.searchArXiv(query))
@@ -84,20 +118,99 @@ export class RealWebSearchService {
     return this.aggregateResearchData(results, idea);
   }
 
+  private generateSpecificResearchQueries(idea: InnovationIdea): string[] {
+    const title = idea.title.toLowerCase();
+    const category = idea.category.toLowerCase();
+    
+    if (title.includes('smart home') || title.includes('energy')) {
+      return [
+        `smart home energy optimization machine learning`,
+        `home energy management artificial intelligence`,
+        `energy consumption prediction algorithms`,
+        `smart grid optimization AI`
+      ];
+    } else if (title.includes('finance') || title.includes('fintech')) {
+      return [
+        `personal finance artificial intelligence`,
+        `financial planning machine learning`,
+        `fintech AI applications`,
+        `financial behavior prediction`
+      ];
+    } else if (title.includes('health') || title.includes('medical')) {
+      return [
+        `health monitoring artificial intelligence`,
+        `medical AI applications`,
+        `healthcare machine learning`,
+        `digital health technology`
+      ];
+    } else if (title.includes('ai') || title.includes('artificial intelligence')) {
+      return [
+        `artificial intelligence ${category}`,
+        `${category} machine learning applications`,
+        `AI-powered ${category} solutions`,
+        `${category} intelligent systems`
+      ];
+    } else {
+      return [
+        `${idea.title} research`,
+        `${category} artificial intelligence`,
+        `${idea.title} machine learning`,
+        `${category} technology innovation`
+      ];
+    }
+  }
+
   private async searchCompetitiveData(idea: InnovationIdea): Promise<any> {
-    // Search for competitors and similar products
-    const competitiveQueries = [
-      `${idea.title} competitors`,
-      `${idea.title} similar products`,
-      `${idea.category} startups`,
-      `${idea.title} companies`
-    ];
+    // Generate specific competitive queries based on the innovation
+    const competitiveQueries = this.generateSpecificCompetitiveQueries(idea);
 
     const results = await Promise.all(
       competitiveQueries.map(query => this.performGoogleSearch(query))
     );
 
     return this.aggregateCompetitiveData(results, idea);
+  }
+
+  private generateSpecificCompetitiveQueries(idea: InnovationIdea): string[] {
+    const title = idea.title.toLowerCase();
+    const category = idea.category.toLowerCase();
+    
+    if (title.includes('smart home') || title.includes('energy')) {
+      return [
+        `Nest smart home energy management`,
+        `Ecobee smart thermostat competitors`,
+        `home energy optimization startups`,
+        `smart home AI companies 2024`
+      ];
+    } else if (title.includes('finance') || title.includes('fintech')) {
+      return [
+        `Mint personal finance app competitors`,
+        `YNAB budgeting app alternatives`,
+        `fintech startups 2024`,
+        `AI personal finance apps`
+      ];
+    } else if (title.includes('health') || title.includes('medical')) {
+      return [
+        `Fitbit health tracking competitors`,
+        `Apple Health app alternatives`,
+        `healthtech startups 2024`,
+        `AI health monitoring apps`
+      ];
+    } else if (title.includes('ai') || title.includes('artificial intelligence')) {
+      return [
+        `${category} AI companies`,
+        `artificial intelligence ${category} startups`,
+        `AI-powered ${category} solutions`,
+        `${category} machine learning companies`
+      ];
+    } else {
+      return [
+        `${idea.title} direct competitors`,
+        `${category} market leaders`,
+        `${idea.title} alternative solutions`,
+        `${category} successful startups`
+      ];
+    }
   }
 
   private async searchPatentData(idea: InnovationIdea): Promise<any> {
@@ -329,43 +442,54 @@ export class RealWebSearchService {
 
   private extractCompetitors(results: any[]): any[] {
     const competitors = [];
+    const knownCompanies = new Set();
     
     for (const result of results) {
       for (const item of result.items || []) {
         const text = `${item.title} ${item.snippet}`;
         
-        // Look for specific competitor patterns
-        if (text.toLowerCase().includes('competitor') || 
-            text.toLowerCase().includes('alternative') ||
-            text.toLowerCase().includes('similar to') ||
-            text.toLowerCase().includes('like')) {
-          
-          // Extract company names and descriptions
-          const companyMatches = text.match(/\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\b/g);
-          if (companyMatches) {
-            companyMatches.forEach(company => {
-              if (company.length > 3 && company.length < 50 && 
-                  !company.toLowerCase().includes('the') &&
-                  !company.toLowerCase().includes('and') &&
-                  !company.toLowerCase().includes('for')) {
-                competitors.push({
-                  name: company,
-                  description: item.snippet?.substring(0, 150) + '...' || 'Competitor in the market',
-                  website: item.link || ''
-                });
-              }
-            });
+        // Look for specific company names and brands
+        const companyPatterns = [
+          /(Nest|Google Nest)/gi,
+          /(Ecobee)/gi,
+          /(Mint|Intuit)/gi,
+          /(YNAB|You Need A Budget)/gi,
+          /(Fitbit|Google Fitbit)/gi,
+          /(Apple Health|HealthKit)/gi,
+          /(Spotify)/gi,
+          /(Netflix)/gi,
+          /(Uber)/gi,
+          /(Airbnb)/gi,
+          /(Tesla)/gi,
+          /(Amazon Alexa)/gi,
+          /(Microsoft)/gi,
+          /(Salesforce)/gi,
+          /(Slack)/gi,
+          /(Zoom)/gi,
+          /(Stripe)/gi,
+          /(Square)/gi,
+          /(PayPal)/gi,
+          /(Venmo)/gi
+        ];
+        
+        companyPatterns.forEach(pattern => {
+          const matches = text.match(pattern);
+          if (matches) {
+            const companyName = matches[0];
+            if (!knownCompanies.has(companyName.toLowerCase())) {
+              knownCompanies.add(companyName.toLowerCase());
+              competitors.push({
+                name: companyName,
+                description: item.snippet?.substring(0, 150) + '...' || `${companyName} - Industry leader`,
+                website: item.link || ''
+              });
+            }
           }
-        }
+        });
       }
     }
     
-    // Remove duplicates and return top 5
-    const uniqueCompetitors = competitors.filter((comp, index, self) => 
-      index === self.findIndex(c => c.name === comp.name)
-    );
-    
-    return uniqueCompetitors.slice(0, 5);
+    return competitors.slice(0, 5);
   }
 
   private extractTrends(results: any[]): string[] {

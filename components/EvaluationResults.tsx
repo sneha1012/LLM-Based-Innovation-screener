@@ -139,30 +139,30 @@ export default function EvaluationResults({ result, onNewEvaluation }: Evaluatio
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
                 <div className="bg-butterYellow/10 rounded-xl p-6">
-                  <h4 className="font-bold text-butterYellow mb-3 font-serif">Deep Learning Models</h4>
+                  <h4 className="font-bold text-butterYellow mb-3 font-serif">AI & Machine Learning</h4>
                   <ul className="text-butterYellow/90 space-y-2 text-sm font-serif">
-                    <li>• Neural Networks for pattern recognition</li>
-                    <li>• CNN for image/3D model processing</li>
-                    <li>• RNN/LSTM for sequence analysis</li>
-                    <li>• Transformer models for NLP</li>
+                    <li>• Predictive analytics for market trends</li>
+                    <li>• Natural language processing for insights</li>
+                    <li>• Recommendation algorithms for users</li>
+                    <li>• Pattern recognition for optimization</li>
                   </ul>
                 </div>
                 <div className="bg-butterYellow/10 rounded-xl p-6">
-                  <h4 className="font-bold text-butterYellow mb-3 font-serif">3D & Computer Vision</h4>
+                  <h4 className="font-bold text-butterYellow mb-3 font-serif">Data Intelligence</h4>
                   <ul className="text-butterYellow/90 space-y-2 text-sm font-serif">
-                    <li>• 3D reconstruction algorithms</li>
-                    <li>• Point cloud processing</li>
-                    <li>• Mesh generation & optimization</li>
-                    <li>• Real-time rendering pipelines</li>
+                    <li>• Real-time data processing</li>
+                    <li>• Market sentiment analysis</li>
+                    <li>• Competitive intelligence gathering</li>
+                    <li>• User behavior analytics</li>
                   </ul>
                 </div>
                 <div className="bg-butterYellow/10 rounded-xl p-6">
                   <h4 className="font-bold text-butterYellow mb-3 font-serif">Business Intelligence</h4>
                   <ul className="text-butterYellow/90 space-y-2 text-sm font-serif">
-                    <li>• Predictive analytics models</li>
-                    <li>• Market trend analysis</li>
-                    <li>• Risk assessment algorithms</li>
-                    <li>• Recommendation systems</li>
+                    <li>• Investment risk assessment</li>
+                    <li>• Market opportunity analysis</li>
+                    <li>• Strategic decision support</li>
+                    <li>• Performance optimization</li>
                   </ul>
                 </div>
               </div>
