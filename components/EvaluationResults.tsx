@@ -129,25 +129,42 @@ export default function EvaluationResults({ result, onNewEvaluation }: Evaluatio
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
         >
-          {/* Overall Score - Beautiful Design */}
+          {/* ML & Algorithms Section */}
           <div className="bg-gradient-to-r from-darkGreen to-darkGreen/80 rounded-2xl p-8 mb-8 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-butterYellow/10 to-transparent"></div>
             <div className="relative z-10">
-              <div className="flex items-center justify-center space-x-4 mb-4">
-                {getScoreIcon(latestResult.overallScore)}
-                <h3 className="text-2xl font-bold text-butterYellow font-serif">Overall Innovation Score</h3>
+              <div className="flex items-center justify-center space-x-4 mb-6">
+                <Brain className="w-8 h-8 text-butterYellow" />
+                <h3 className="text-2xl font-bold text-butterYellow font-serif">AI & Machine Learning Analysis</h3>
               </div>
-              <div className="text-6xl font-bold text-butterYellow mb-2 font-serif">
-                {latestResult.overallScore}
-              </div>
-              <div className="text-xl text-butterYellow/90 font-serif mb-6">
-                {getScoreLabel(latestResult.overallScore)}
-              </div>
-              <div className="w-full bg-butterYellow/20 rounded-full h-4 max-w-md mx-auto">
-                <div
-                  className={`h-4 rounded-full bg-gradient-to-r ${getScoreGradient(latestResult.overallScore)} transition-all duration-1000`}
-                  style={{ width: `${latestResult.overallScore}%` }}
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                <div className="bg-butterYellow/10 rounded-xl p-6">
+                  <h4 className="font-bold text-butterYellow mb-3 font-serif">Deep Learning Models</h4>
+                  <ul className="text-butterYellow/90 space-y-2 text-sm font-serif">
+                    <li>• Neural Networks for pattern recognition</li>
+                    <li>• CNN for image/3D model processing</li>
+                    <li>• RNN/LSTM for sequence analysis</li>
+                    <li>• Transformer models for NLP</li>
+                  </ul>
+                </div>
+                <div className="bg-butterYellow/10 rounded-xl p-6">
+                  <h4 className="font-bold text-butterYellow mb-3 font-serif">3D & Computer Vision</h4>
+                  <ul className="text-butterYellow/90 space-y-2 text-sm font-serif">
+                    <li>• 3D reconstruction algorithms</li>
+                    <li>• Point cloud processing</li>
+                    <li>• Mesh generation & optimization</li>
+                    <li>• Real-time rendering pipelines</li>
+                  </ul>
+                </div>
+                <div className="bg-butterYellow/10 rounded-xl p-6">
+                  <h4 className="font-bold text-butterYellow mb-3 font-serif">Business Intelligence</h4>
+                  <ul className="text-butterYellow/90 space-y-2 text-sm font-serif">
+                    <li>• Predictive analytics models</li>
+                    <li>• Market trend analysis</li>
+                    <li>• Risk assessment algorithms</li>
+                    <li>• Recommendation systems</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

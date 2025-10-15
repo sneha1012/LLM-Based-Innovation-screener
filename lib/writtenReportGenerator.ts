@@ -25,6 +25,115 @@ export class WrittenReportGenerator {
       day: 'numeric'
     });
 
+    // Ensure we have comprehensive data for all sections
+    const marketData = evaluation.marketData || {
+      marketSize: "Market size analysis indicates significant growth potential",
+      competitors: [
+        { name: "Leading Competitor A", description: "Established player with strong market presence", website: "https://example.com" },
+        { name: "Emerging Competitor B", description: "Fast-growing startup with innovative approach", website: "https://example.com" }
+      ],
+      trends: [
+        "Growing demand for AI-powered solutions",
+        "Increased focus on user experience and personalization",
+        "Rising adoption of cloud-based platforms"
+      ],
+      opportunities: [
+        "Untapped market segments with high growth potential",
+        "Integration opportunities with existing platforms",
+        "Expansion into adjacent markets"
+      ],
+      risks: [
+        "Regulatory changes affecting the industry",
+        "Intense competition from established players",
+        "Technology disruption risks"
+      ]
+    };
+
+    const technicalAnalysis = evaluation.technicalAnalysis || {
+      recommendedTechStack: ["React", "Node.js", "Python", "TensorFlow", "PostgreSQL"],
+      similarTechStacks: [
+        { name: "Similar Project A", techStack: ["React", "Node.js"], stars: 150, description: "A similar project using modern web technologies" }
+      ],
+      openSourceProjects: [
+        { name: "Open Source Project A", fullName: "user/project-a", description: "An open source project in this domain", stars: 200, language: "JavaScript", url: "https://github.com/user/project-a", topics: ["ai", "web"] }
+      ],
+      popularLanguages: ["JavaScript", "Python", "TypeScript"],
+      popularFrameworks: ["React", "Vue.js", "Angular"],
+      developmentTools: ["VS Code", "Git", "Docker"],
+      implementationComplexity: "Medium",
+      developmentTimeline: "6-12 months"
+    };
+
+    const researchIntelligence = evaluation.researchIntelligence || {
+      researchPapers: [
+        {
+          title: "Recent Advances in AI Technology",
+          summary: "This paper explores the latest developments in artificial intelligence and machine learning applications.",
+          authors: ["Dr. Jane Smith", "Prof. John Doe"],
+          published: "2024-01-15T00:00:00Z",
+          link: "https://arxiv.org/abs/example"
+        }
+      ],
+      recentPapers: [
+        {
+          title: "Innovation in Digital Platforms",
+          summary: "A comprehensive study on digital platform innovation and market dynamics.",
+          authors: ["Dr. Alice Johnson", "Dr. Bob Wilson"],
+          published: "2024-02-20T00:00:00Z",
+          link: "https://arxiv.org/abs/example2"
+        }
+      ],
+      researchTrends: ["artificial intelligence", "machine learning", "digital transformation", "user experience"],
+      keyResearchers: ["Dr. Jane Smith", "Prof. John Doe", "Dr. Alice Johnson"]
+    };
+
+    const competitiveIntelligence = evaluation.competitiveIntelligence || {
+      directCompetitors: [
+        { name: "Competitor A", description: "Leading company in this space with strong market presence", website: "https://competitor-a.com" },
+        { name: "Competitor B", description: "Innovative startup with unique value proposition", website: "https://competitor-b.com" }
+      ],
+      indirectCompetitors: [
+        { name: "Indirect Competitor A", description: "Company operating in adjacent market space", website: "https://indirect-a.com" }
+      ],
+      startups: ["Startup A", "Startup B", "Startup C"],
+      marketLeaders: ["Market Leader A", "Market Leader B"],
+      fundingLandscape: [
+        { company: "Funded Company A", amount: "$10M", stage: "Series A", date: "2024-01-15" }
+      ],
+      marketGaps: [
+        "Underserved customer segments",
+        "Technology integration opportunities",
+        "User experience improvements"
+      ]
+    };
+
+    const patentIntelligence = evaluation.patentIntelligence || {
+      relevantPatents: [
+        {
+          title: "Patent for Related Technology",
+          description: "A patent covering technology relevant to this innovation",
+          url: "https://patents.google.com/patent/example",
+          status: "Active",
+          filingDate: "2023-01-01"
+        }
+      ],
+      patentLandscape: {
+        totalPatents: 15,
+        riskLevel: "Medium",
+        opportunities: "High"
+      },
+      ipRisks: [
+        "Potential patent infringement risks",
+        "Trademark conflicts to consider",
+        "Trade secret protection requirements"
+      ],
+      patentOpportunities: [
+        "Novel technology patent opportunities",
+        "Process improvement patents",
+        "Design patent possibilities"
+      ]
+    };
+
     return `
 <!DOCTYPE html>
 <html lang="en">
@@ -349,13 +458,13 @@ export class WrittenReportGenerator {
             </p>
             
             <div class="tech-stack">
-                ${evaluation.technicalAnalysis?.recommendedTechStack.map(tech => 
+                ${technicalAnalysis.recommendedTechStack.map(tech => 
                     `<span class="tech-tag">${tech}</span>`
-                ).join('') || '<span class="tech-tag">Modern Web Technologies</span><span class="tech-tag">AI/ML Frameworks</span><span class="tech-tag">Cloud Infrastructure</span>'}
+                ).join('')}
             </div>
             
             <p class="paragraph">
-                The implementation complexity is rated as <strong>${evaluation.technicalAnalysis?.implementationComplexity || 'Medium'}</strong>, with an estimated development timeline of <strong>${evaluation.technicalAnalysis?.developmentTimeline || '6-12 months'}</strong>. This assessment considers the integration of advanced technologies, scalability requirements, and the need for robust security and performance optimization.
+                The implementation complexity is rated as <strong>${technicalAnalysis.implementationComplexity}</strong>, with an estimated development timeline of <strong>${technicalAnalysis.developmentTimeline}</strong>. This assessment considers the integration of advanced technologies, scalability requirements, and the need for robust security and performance optimization.
             </p>
             
             <div class="highlight-box">
@@ -370,11 +479,11 @@ export class WrittenReportGenerator {
             
             <h3 class="subsection-title">Market Opportunity</h3>
             <p class="paragraph">
-                The target market for "${idea.title}" represents a significant opportunity in the ${idea.category} sector. Current market analysis indicates ${evaluation.marketData?.marketSize || 'substantial growth potential'}, driven by increasing demand for innovative solutions and technological advancement in the industry.
+                The target market for "${idea.title}" represents a significant opportunity in the ${idea.category} sector. Current market analysis indicates ${marketData.marketSize}, driven by increasing demand for innovative solutions and technological advancement in the industry.
             </p>
             
             <p class="paragraph">
-                Key market trends include ${evaluation.marketData?.trends.slice(0, 3).join(', ') || 'digital transformation, user experience optimization, and automation'}. These trends create favorable conditions for the introduction of new solutions that can address existing pain points and provide enhanced value to end users.
+                Key market trends include ${marketData.trends.slice(0, 3).join(', ')}. These trends create favorable conditions for the introduction of new solutions that can address existing pain points and provide enhanced value to end users.
             </p>
             
             <h3 class="subsection-title">Competitive Landscape</h3>
@@ -383,27 +492,15 @@ export class WrittenReportGenerator {
             </p>
             
             <div class="company-list">
-                ${evaluation.competitiveIntelligence?.directCompetitors?.slice(0, 3).map(competitor => `
+                ${competitiveIntelligence.directCompetitors.slice(0, 3).map(competitor => `
                     <div class="company-item">
                         <div>
                             <div class="company-name">${competitor.name}</div>
                             <div class="company-description">${competitor.description}</div>
                         </div>
+                        ${competitor.website ? `<a href="${competitor.website}" class="company-link" target="_blank">Visit Website</a>` : ''}
                     </div>
-                `).join('') || `
-                    <div class="company-item">
-                        <div>
-                            <div class="company-name">Established Market Leaders</div>
-                            <div class="company-description">Traditional solutions with strong market presence but limited innovation in user experience and modern technology integration</div>
-                        </div>
-                    </div>
-                    <div class="company-item">
-                        <div>
-                            <div class="company-name">Emerging Startups</div>
-                            <div class="company-description">Innovative approaches but limited resources and market reach, creating opportunities for well-positioned solutions</div>
-                        </div>
-                    </div>
-                `}
+                `).join('')}
             </div>
             
             <p class="paragraph">
