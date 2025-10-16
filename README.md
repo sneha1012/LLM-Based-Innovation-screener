@@ -19,6 +19,8 @@ A comprehensive AI-powered platform for evaluating and screening innovative idea
 - **Deployment**: Vercel
 - **Database**: MongoDB (optional for persistence)
 
+https://innovation-screener.vercel.app 
+
 ## 📊 Evaluation Methods
 
 1. **Innovation Potential Score**: 0-100 scale based on novelty and market potential
