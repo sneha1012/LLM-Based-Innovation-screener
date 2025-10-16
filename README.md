@@ -2,7 +2,7 @@
 
 A comprehensive AI-powered platform for evaluating and screening innovative ideas using advanced language models and evaluation metrics.
 
-## 🚀 Features
+##  Features
 
 - **AI-Powered Analysis**: Leverages Google Gemini API for intelligent innovation assessment
 - **Comprehensive Evaluation**: Multiple evaluation methods and metrics
